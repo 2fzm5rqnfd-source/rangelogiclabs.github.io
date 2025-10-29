@@ -169,7 +169,8 @@
           <p class="lead">We help teams ship maintainable, performant software and GIS web apps. From rapid prototypes to enterprise integrations: ArcGIS JS API, .NET 8/9, modern JS, data pipelines, and cloud-native mapping.</p>
           <div class="cta">
             <a class="btn primary" href="#contact">Start a conversation</a>
-            <a class="btn" href="mailto:hello@rangelogiclabs.com">hello@rangelogiclabs.com</a>
+            <a class="btn" href="mailto:hello@rangelogiclabs.com" id="email-link">hello@rangelogiclabs.com</a>
+            <button class="btn" type="button" id="copy-email" aria-label="Copy email address">Copy email</button>
           </div>
         </div>
         <div class="hero-card" aria-label="Sample code">
@@ -252,15 +253,24 @@ import "https://js.arcgis.com/4.30/";
           TODO: Replace YOUR_FORM_ID with your Formspree form endpoint.
           Create one at https://formspree.io/forms
         -->
-        <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" id="contact-form">
+        <form action="https://formspree.io/f/xvgvrlgy" method="POST" id="contact-form">
+          <!-- Formspree maps any field names. Use these conventional names -->
           <label for="name">Name</label>
-          <input id="name" name="name" autocomplete="name" required />
+          <input id="name" name="name" autocomplete="name" placeholder="Your name" required />
 
           <label for="email">Email</label>
-          <input id="email" name="email" type="email" inputmode="email" autocomplete="email" required />
+          <input id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@company.com" required />
 
           <label for="message">Message</label>
-          <textarea id="message" name="message" required></textarea>
+          <textarea id="message" name="message" placeholder="What can we help you build? Share goals, timeline, and any links." required></textarea>
+
+          <!-- Optional metadata to improve deliverability and triage -->
+          <input type="hidden" name="_subject" value="Rangelogic Labs – New Contact" />
+          <input type="hidden" name="_replyto" value="{{email}}" />
+          <!-- Honeypot for spam bots (Formspree ignores if filled) -->
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" aria-hidden="true" />
+          <!-- Redirect after success (fallback if JS disabled). Create thanks.html or remove. -->
+          <input type="hidden" name="_next" value="/thanks.html" />
 
           <button class="btn primary" type="submit">Send message</button>
           <p id="form-status" role="status" aria-live="polite" style="margin:.5rem 0 0; color:var(--fg-muted)"></p>
