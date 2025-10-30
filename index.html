@@ -2,49 +2,41 @@
 <html lang="en">
 <head>
   <!--
-    Rangelogic Labs – Modern Static Landing Page
-    Drop this single file as /index.html in your GitHub Pages repo.
-    - Mobile-first, responsive, accessible (WCAG AA contrast)
-    - Minimal vanilla JS (no build step)
-    - Dark mode via prefers-color-scheme
+    Rangelogic Labs – Static Landing Page (no JS map)
+    - Mobile-first, accessible, dark/light aware
     - SEO + OpenGraph + JSON-LD
-    - Contact form wired for Formspree (swap the endpoint)
-
-    Customize: Search for TODO: markers
+    - Formspree contact form (endpoint wired)
   -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Rangelogic Labs – Applied Software & Geospatial Development</title>
   <meta name="description" content="Rangelogic Labs builds practical, performant software and geospatial solutions: .NET, JavaScript, GIS web apps, data pipelines, and cloud-native mapping." />
 
-  <!-- Open Graph / Twitter cards -->
+  <!-- Open Graph / Twitter -->
   <meta property="og:title" content="Rangelogic Labs" />
   <meta property="og:description" content="Applied software & geospatial development: .NET, JS, GIS, and cloud." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://rangelogiclabs.com/" />
-  <meta property="og:image" content="https://rangelogiclabs.com/og-image.png" /> <!-- TODO: add image -->
+  <!-- After we export the hero, consider also using it (or a variant) as og-image -->
+  <meta property="og:image" content="https://rangelogiclabs.com/og-image.png" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Favicon (optional) -->
-  <!-- TODO: place /favicon.ico and /site.webmanifest (PWA optional) -->
   <link rel="icon" href="/favicon.ico" />
 
   <style>
     :root {
-      /* TODO: Brand colors */
-      --bg: #0b0c10;           /* page background (dark) */
-      --bg-muted: #111218;     /* section contrast */
-      --fg: #e6e7ea;           /* primary text */
-      --fg-muted: #b9bcc6;     /* secondary text */
-      --brand: #27c3a2;        /* accent (teal) */
-      --brand-2: #6dd5ed;      /* gradient helper */
-      --card: #151823;         /* card bg */
-      --border: #24283a;       /* subtle border */
+      --bg: #0b0c10;
+      --bg-muted: #111218;
+      --fg: #e6e7ea;
+      --fg-muted: #b9bcc6;
+      --brand: #27c3a2;
+      --brand-2: #6dd5ed;
+      --card: #151823;
+      --border: #24283a;
       --shadow: 0 10px 30px rgba(0,0,0,.35);
       --radius: 20px;
       --maxw: 1200px;
     }
-
     @media (prefers-color-scheme: light) {
       :root {
         --bg: #f7f9fb;
@@ -67,7 +59,7 @@
     }
     a { color: var(--brand); text-decoration: none; }
     a:hover { text-decoration: underline; }
-    img { max-width: 100%; height: auto; }
+    img { max-width: 100%; height: auto; display: block; }
 
     .container { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 1.25rem; }
 
@@ -87,7 +79,9 @@
     nav a { color: var(--fg); opacity: .9; }
 
     /* Hero */
-    .hero { padding: 96px 0 56px; background: radial-gradient(1200px 600px at 20% -10%, color-mix(in oklab, var(--brand), transparent 75%), transparent 70%), radial-gradient(1200px 600px at 100% 0%, color-mix(in oklab, var(--brand-2), transparent 82%), transparent 80%); }
+    .hero { padding: 96px 0 56px; background:
+      radial-gradient(1200px 600px at 20% -10%, color-mix(in oklab, var(--brand), transparent 75%), transparent 70%),
+      radial-gradient(1200px 600px at 100% 0%, color-mix(in oklab, var(--brand-2), transparent 82%), transparent 80%); }
     .hero .split { display:grid; gap: 32px; grid-template-columns: 1.2fr 1fr; align-items:center; }
     .badge { display:inline-flex; align-items:center; gap:.5rem; border:1px solid var(--border); background: var(--card); color: var(--fg-muted); padding:.4rem .7rem; border-radius: 999px; font-size: .9rem; }
     h1 { font-size: clamp(2rem, 3.5vw, 3rem); line-height: 1.2; margin: .6rem 0 1rem; }
@@ -97,9 +91,8 @@
     .btn.primary { background: linear-gradient(135deg, var(--brand), var(--brand-2)); color: #042a25; border: none; }
     .btn:hover { transform: translateY(-1px); }
 
-    .hero-card { border:1px solid var(--border); background: var(--card); border-radius: var(--radius); padding: 1rem; box-shadow: var(--shadow); }
-    .hero-card pre { margin:0; overflow:auto; padding: 1rem; border-radius: 12px; background:#0f1220; color:#e6e7ea; }
-    @media (prefers-color-scheme: light) { .hero-card pre { background: #0f172a; color: #e2e8f0; } }
+    .hero-media { border:1px solid var(--border); background: var(--card); border-radius: var(--radius); padding: 0; box-shadow: var(--shadow); overflow: hidden; }
+    .hero-media img { width: 100%; height: 360px; object-fit: cover; object-position: center; }
 
     /* Sections */
     section { padding: 72px 0; }
@@ -111,14 +104,6 @@
     .card { grid-column: span 4; border: 1px solid var(--border); background: var(--card); border-radius: var(--radius); padding: 1rem; box-shadow: var(--shadow); }
     .card h3 { margin-top: .25rem; }
     .kpi { display:flex; gap:.5rem; align-items:center; color: var(--fg-muted); font-size:.95rem; }
-
-    /* Logos row */
-    .logos { display:flex; flex-wrap:wrap; gap: 1rem; align-items:center; opacity:.85; }
-    .logos span { border:1px dashed var(--border); padding:.5rem .75rem; border-radius: 10px; }
-
-    /* Projects */
-    .projects .card { grid-column: span 6; display:grid; grid-template-rows: auto 1fr auto; }
-    .projects .meta { color: var(--fg-muted); font-size: .95rem; }
 
     /* Contact */
     .contact { display:grid; gap: 24px; grid-template-columns: 1fr 1fr; }
@@ -133,7 +118,6 @@
     @media (max-width: 980px) {
       .hero .split { grid-template-columns: 1fr; }
       .card { grid-column: span 6; }
-      .projects .card { grid-column: span 12; }
       .contact { grid-template-columns: 1fr; }
     }
     @media (max-width: 640px) {
@@ -152,7 +136,6 @@
       <nav>
         <ul>
           <li><a href="#services">Services</a></li>
-          <li><a href="#projects">Work</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
@@ -164,22 +147,18 @@
     <div class="container">
       <div class="split">
         <div>
-          <span class="badge">Geospatial • .NET • JavaScript • Cloud</span>
-          <h1>Applied software & geospatial development — prototypes to production.</h1>
-          <p class="lead">We help teams ship maintainable, performant software and GIS web apps. From rapid prototypes to enterprise integrations: ArcGIS JS API, .NET 8/9, modern JS, data pipelines, and cloud-native mapping.</p>
+          <span class="badge">Geospatial • .NET • ArcGIS JS • Cloud</span>
+          <h1>Geospatial software that ships — fast maps, clean APIs, real results.</h1>
+          <p class="lead">Rangelogic Labs helps teams design and deliver production-ready GIS web apps and services. We specialize in ArcGIS JavaScript 4.x, ASP.NET Core, TypeScript, PostGIS, and cloud-native pipelines on Azure/AWS.</p>
           <div class="cta">
             <a class="btn primary" href="#contact">Start a conversation</a>
-            <a class="btn" href="mailto:hello@rangelogiclabs.com" id="email-link">hello@rangelogiclabs.com</a>
-            <button class="btn" type="button" id="copy-email" aria-label="Copy email address">Copy email</button>
           </div>
         </div>
-        <div class="hero-card" aria-label="Sample code">
-<pre><code>// Example: Tiny JS snippet for a fast map widget (placeholder)
-import "https://js.arcgis.com/4.30/";
-// NOTE: Swap in your actual ArcGIS JS app later.
-</code></pre>
-          <div class="kpi" aria-hidden="true">⚡ Zero build tools • <span>Static hosting</span> • <span>Instant deploys</span></div>
-        </div>
+
+        <!-- Static hero image (we'll generate /img/earth-hero.jpg next) -->
+        <figure class="hero-media" aria-label="Earth from orbit hero image">
+          <img src="/img/earth-hero.png" alt="Stylized Earth from orbit with illuminated cities and clouds" />
+        </figure>
       </div>
     </div>
   </main>
@@ -188,55 +167,19 @@ import "https://js.arcgis.com/4.30/";
   <section id="services">
     <div class="container">
       <h2 class="section-title">What we do</h2>
-      <p class="section-sub">Design and deliver high‑quality, scalable solutions across the stack.</p>
+      <p class="section-sub">Design and deliver high-quality, scalable solutions across the stack.</p>
       <div class="grid">
         <article class="card" aria-label="GIS Web Apps">
           <h3>GIS Web Apps</h3>
-          <p>ArcGIS JavaScript API 4.x, vector tiles, COGs/Zarr pipelines, performant rendering, and accessible UX.</p>
+          <p>High-performance mapping with ArcGIS JS 4.x and vector tiles. Thoughtful UX, responsive design, and accessible color ramps for decision-makers.</p>
         </article>
         <article class="card" aria-label=".NET & APIs">
-          <h3>.NET & APIs</h3>
-          <p>ASP.NET Core, minimal APIs, auth, background jobs, caching, and CI/CD for resilient services.</p>
+          <h3>.NET APIs & Integrations</h3>
+          <p>ASP.NET Core minimal APIs, auth, caching, and CI/CD. Clean boundaries, versioned contracts, and telemetry so services stay reliable.</p>
         </article>
         <article class="card" aria-label="Data & Cloud">
-          <h3>Data & Cloud</h3>
-          <p>ETL for climate & sensor data, storage patterns (S3, Azure), SQL/NoSQL modeling, and observability.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- Logos / Tech -->
-  <section aria-label="Technologies and tools">
-    <div class="container">
-      <div class="logos" role="list">
-        <span role="listitem">.NET</span>
-        <span role="listitem">ArcGIS JS</span>
-        <span role="listitem">TypeScript</span>
-        <span role="listitem">Azure</span>
-        <span role="listitem">PostgreSQL</span>
-        <span role="listitem">S3</span>
-        <span role="listitem">Docker</span>
-        <span role="listitem">GitHub Actions</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- Projects -->
-  <section id="projects" class="projects">
-    <div class="container">
-      <h2 class="section-title">Selected work</h2>
-      <p class="section-sub">A few representative projects and experiments.</p>
-      <div class="grid">
-        <article class="card">
-          <h3>Climate Dashboards</h3>
-          <p class="meta">Time‑series visualization with tiled rasters and on‑hover charts.</p>
-          <p>Interactive maps leveraging COGs/Zarr datasets. Smooth time controls, accessible color ramps, and exportable charts for decision support.</p>
-        </article>
-        <article class="card">
-          <h3>SensorThings Explorer</h3>
-          <p class="meta">OGC SensorThings API client with map + charts</p>
-          <p>Fast query panels, spatial filters, and saved views. Pluggable backends and caching for large sensor networks.</p>
+          <h3>Data Engineering & Cloud</h3>
+          <p>ETL for climate & sensor data. COGs/Zarr workflows, S3/Azure storage patterns, PostGIS modeling, and observability from day one.</p>
         </article>
       </div>
     </div>
@@ -248,13 +191,8 @@ import "https://js.arcgis.com/4.30/";
       <div class="form">
         <h2 class="section-title">Get in touch</h2>
         <p class="section-sub">Tell us a bit about your project. We’ll reply from <a href="mailto:hello@rangelogiclabs.com">hello@rangelogiclabs.com</a>.</p>
-        <!-- 
-          Contact form wired to Formspree (no backend needed). 
-          TODO: Replace YOUR_FORM_ID with your Formspree form endpoint.
-          Create one at https://formspree.io/forms
-        -->
+
         <form action="https://formspree.io/f/xvgvrlgy" method="POST" id="contact-form">
-          <!-- Formspree maps any field names. Use these conventional names -->
           <label for="name">Name</label>
           <input id="name" name="name" autocomplete="name" placeholder="Your name" required />
 
@@ -264,12 +202,9 @@ import "https://js.arcgis.com/4.30/";
           <label for="message">Message</label>
           <textarea id="message" name="message" placeholder="What can we help you build? Share goals, timeline, and any links." required></textarea>
 
-          <!-- Optional metadata to improve deliverability and triage -->
           <input type="hidden" name="_subject" value="Rangelogic Labs – New Contact" />
-          <input type="hidden" name="_replyto" value="{{email}}" />
-          <!-- Honeypot for spam bots (Formspree ignores if filled) -->
+          <!-- Honeypot for spam bots -->
           <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" aria-hidden="true" />
-          <!-- Redirect after success (fallback if JS disabled). Create thanks.html or remove. -->
           <input type="hidden" name="_next" value="/thanks.html" />
 
           <button class="btn primary" type="submit">Send message</button>
@@ -286,7 +221,7 @@ import "https://js.arcgis.com/4.30/";
         <ul>
           <li>GIS web applications & data visualization</li>
           <li>.NET APIs and integrations</li>
-          <li>Cloud‑hosted pipelines for spatial data</li>
+          <li>Cloud-hosted pipelines for spatial data</li>
         </ul>
       </div>
     </div>
@@ -306,7 +241,7 @@ import "https://js.arcgis.com/4.30/";
     // Update copyright year
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    // Progressive enhancement: async form submit with simple status
+    // Async form submit with simple status
     const form = document.getElementById('contact-form');
     const statusEl = document.getElementById('form-status');
     if (form) {
@@ -316,15 +251,22 @@ import "https://js.arcgis.com/4.30/";
         const data = new FormData(form);
         try {
           const res = await fetch(form.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } });
-          if (res.ok) {
-            statusEl.textContent = 'Thanks! We\'ll be in touch soon.';
-            form.reset();
-          } else {
-            statusEl.textContent = 'Something went wrong. Please email hello@rangelogiclabs.com.';
-          }
-        } catch {
-          statusEl.textContent = 'Network error. Please email hello@rangelogiclabs.com.';
-        }
+          if (res.ok) { statusEl.textContent = 'Thanks! We\'ll be in touch soon.'; form.reset(); }
+          else { statusEl.textContent = 'Something went wrong. Please email hello@rangelogiclabs.com.'; }
+        } catch { statusEl.textContent = 'Network error. Please email hello@rangelogiclabs.com.'; }
+      });
+    }
+
+    // Copy email button
+    const copyBtn = document.getElementById('copy-email');
+    const emailLink = document.getElementById('email-link');
+    if (copyBtn && emailLink) {
+      copyBtn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText('hello@rangelogiclabs.com');
+          copyBtn.textContent = 'Copied!';
+          setTimeout(() => (copyBtn.textContent = 'Copy email'), 2000);
+        } catch {}
       });
     }
 
